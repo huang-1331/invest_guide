@@ -1,0 +1,13 @@
+time_utc,source,operation,status,detail,metadata
+2026-10-27T18:34:40.746393+00:00,KIND,kind_current,ok,,"{""rows"": 2758, ""scope"": ""current page only; not historical universe""}"
+2026-10-27T18:34:46.241053+00:00,KIND,kind_delisting_page,ok,,"{""rows"": 2, ""scope"": ""current page only; not historical universe""}"
+2026-10-27T18:36:41.300542+00:00,OpenDART,network_probe,reachable,,"{""bytes"": 4694, ""sha256"": ""cdf534640d956f068d79670b0148e0c59a5b58d5f2b299fb44b206459f9fcf0a""}"
+2026-10-27T18:36:47.591061+00:00,KIND_listing,network_probe,reachable,,"{""bytes"": 1243824, ""sha256"": ""505a8221456913084f32adf1837fed33ca00454ea1305992054a6fcd05e13b35""}"
+2026-10-27T18:36:52.986164+00:00,KIND_delisting,network_probe,reachable,,"{""bytes"": 84475, ""sha256"": ""176406c126425327c1e578eeb019b41483fe67aa5a4c0d005fa8f4b700afac91""}"
+2026-10-27T18:36:58.501597+00:00,KRX,network_probe,reachable,,"{""bytes"": 15165, ""sha256"": ""b15d927c2ed856783f2a767b77ed456aa4b1d3134d3024e0d3aaf7f6ab9e8d30""}"
+2026-10-27T18:36:58.501895+00:00,OpenDART,authentication,blocked,OPENDART_API_KEY not set; no credential reused,{}
+2026-10-27T18:37:32.540293+00:00,OpenDART,authentication,blocked,OPENDART_API_KEY not set,{}
+2026-10-27T18:39:39.110576+00:00,KIND,kind_current,downloaded_unverified_population,,"{""rows"": 2758}"
+2026-10-27T18:39:44.927774+00:00,KIND,kind_delisting,downloaded_unverified_population,,"{""rows"": 635}"
+2026-10-27T18:39:56.989711+00:00,OpenDART,bulk_download,failed,provider returned non-ZIP error page,"{""filename"": ""2025_4Q_BS_20261008030335.zip""}"
+2026-10-27T18:43:51.502920+00:00,KIND,kind_delisting_page,clarification,"Earlier rows=2 counts search-form HTML rows, not delisting records. Actual history download has 635 records.",{}

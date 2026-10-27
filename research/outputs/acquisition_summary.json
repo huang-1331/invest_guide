@@ -1,0 +1,28 @@
+{
+  "retrieved_at_utc": "2026-10-27T18:39:32.082317+00:00",
+  "scope": "Downloaded records only; historical universe completeness NOT verified",
+  "verified_financial_rows": 0,
+  "verified_capital_impairment_events": 0,
+  "sources": {
+    "kind_current": {
+      "url": "https://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",
+      "sha256": "505a8221456913084f32adf1837fed33ca00454ea1305992054a6fcd05e13b35",
+      "bytes": 1243824,
+      "rows": 2758
+    },
+    "kind_delisting": {
+      "url": "https://kind.krx.co.kr/investwarn/delcompany.do?method=searchDelCompanySub&fromDate=2015-01-01&toDate=2025-12-31&currentPageSize=3000&pageIndex=1",
+      "sha256": "d81794e19783bb33fe17983df9421dcf8466a8cab650f3ac072b675115ca8add",
+      "bytes": 407938,
+      "rows": 635,
+      "date_min": "2015-01-07",
+      "date_max": "2025-12-30"
+    },
+    "dart_bulk_index": {
+      "url": "https://opendart.fss.or.kr/disclosureinfo/fnltt/dwld/list.do",
+      "sha256": "bfdbcafc760a3fa95920f75be71931e6e0d6c58cd24f652c326b641dcb6846f1",
+      "bytes": 90086
+    }
+  },
+  "bulk_financial_status": "provider returned non-ZIP error page"
+}

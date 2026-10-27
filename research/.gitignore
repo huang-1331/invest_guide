@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+data/raw/
+data/private/
+!outputs/
+outputs/models/
+*.log

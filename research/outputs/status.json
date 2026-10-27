@@ -1,0 +1,13 @@
+{
+  "status": "blocked",
+  "actual_financial_rows": 0,
+  "incident_companies": 0,
+  "models_evaluated": 0,
+  "config_sha256": "3337f262af62a353cf0761bdf728bec1767e0b7a874f7c9acf6c9ef5377145eb",
+  "python": "3.12.14",
+  "limitations": [
+    "FileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/47e82d6e6967/invest_guide/research/data/private/universe.csv'"
+  ],
+  "scope": "verified historical universe; no resampling of validation/test",
+  "run_directory": "run_20261027T184429512551Z"
+}

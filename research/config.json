@@ -1,0 +1,16 @@
+{
+  "seed": 20261028,
+  "basis": "OFS",
+  "start_year": 2015,
+  "end_year": 2025,
+  "horizons": [12, 24],
+  "train_end": "2018-12-31",
+  "validation_start": "2021-01-01",
+  "validation_end": "2021-12-31",
+  "test_start": "2024-01-01",
+  "test_end": "2025-12-31",
+  "bootstrap_repetitions": 1000,
+  "minimum_event_companies": 20,
+  "sequence_quarters": 8,
+  "max_statement_age_days": 185
+}
