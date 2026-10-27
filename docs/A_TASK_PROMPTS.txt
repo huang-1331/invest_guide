@@ -1,0 +1,74 @@
+Task A-T00: Establish A's execution baseline.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol throughout.
+Understand: Inspect the active app and A/B ownership. Confirm the 3-day MVP and existing behavior.
+Plan: Identify the minimum prerequisites and verification for the next task.
+Execute: Verify local startup; inventory B's data/content contract and shared code/progress access. Record confirmed decisions and unresolved dependencies; do not implement features or edit B files.
+Review: Separate verified facts from pending collaborator confirmation. Record readiness for A-T01.
+On any ambiguity, stop implementation, log blocked, and ask the user with 2–3 options. Do not guess.
+Before ending, update the shared JSON with status, changes, checks, issues, additional requirements, and next task, preserving others' entries. Respond only in concise Korean bullets.
+
+Task A-T01: Complete company navigation and direct links.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol and prerequisites.
+Understand: Inspect search, company details, chart controls, and hash navigation in sites/jusik-guide/dist/.
+Plan: Limit changes to A-owned UI files; preserve the existing design and data contract.
+Execute: Fix company search/detail navigation, modal close, browser back/forward, reload, and unknown-ID handling. Do not fabricate real prices or replace working behavior.
+Review: Verify a search→detail→close round trip, direct-link reload, back/forward, and invalid ID.
+If ambiguous, stop, log blocked, and ask with 2–3 options.
+Update the shared JSON with results, evidence, issues, additional requirements, and next task. Output concise Korean bullets.
+
+Task A-T02: Connect B's education data to the UI.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol.
+Understand: Require B's agreed schema and supplied 10 terms, 4 lessons, and 4 quizzes. If missing or inconsistent, stop and ask with 2–3 options; do not invent content.
+Plan: Connect existing screens using stable IDs and the agreed answer/feedback fields.
+Execute: Integrate terminology, lessons, quiz feedback, and the existing PER exercise; remove conflicting UI-owned content only after equivalent B content is available. Preserve B files.
+Review: Verify all content is reachable, correct/incorrect feedback works, education direct links reload, and PER matches B's examples.
+Record status, checks, issues, additional requirements, and next task in the shared JSON. Reply in minimal Korean bullets.
+
+Task A-T03: Implement browser-local persistence.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol.
+Understand: Inspect existing watchlist storage and confirm what counts as lesson completion, what quiz history to retain, and reset scope. Ask with 2–3 options and stop if undefined.
+Plan: Use stable IDs, a versioned record, and non-destructive handling of existing data.
+Execute: Persist and restore watchlist and agreed learning progress; add an explicit reset flow. Handle malformed records and unavailable storage without losing the current session's usability.
+Review: Check reload restoration, reset scope, existing watchlist preservation, and storage failure behavior.
+Update the shared JSON with evidence, problems, new requirements, and next task. Respond only with concise Korean bullets.
+
+Task A-T04: Complete data-state communication.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol.
+Understand: Inspect empty search/watchlist, loading/errors, demo labels, missing data, and risk placeholders.
+Plan: Reuse agreed metadata; stop and ask with 2–3 options if field meanings or display rules are unclear.
+Execute: Add clear empty/error/retry states where applicable. Mark example prices/charts, disconnected sources, and unevaluable risk. Show real-data source/date/unit only when supplied and verified by B. Preserve chart-period truthfulness.
+Review: Verify no-result search, empty watchlist, failed loading, and demo/missing-data displays; do not present a mock as real.
+Update shared JSON status, checks, issues, additional requirements, and next task. Use minimal Korean bullets.
+
+Task A-T05: Fix responsive and accessible interaction.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol.
+Understand: Inspect existing desktop/mobile layouts, navigation labels, modal focus, and controls.
+Plan: Fix observed usability defects only; avoid redesign and broad refactoring.
+Execute: Correct overflow, unreadable controls, keyboard navigation, focus visibility, modal focus entry/return, Escape closing, and accessible names.
+Review: Exercise the core path at narrow/mobile and desktop widths using supported browser tools; verify keyboard-only operation and modal behavior. Report unavailable browser checks as not run.
+For ambiguity, stop, log blocked, and ask with 2–3 options.
+Update shared JSON findings, verification evidence, additional requirements, and next task. Reply in concise Korean bullets.
+
+Task A-T06: Validate and freeze the local release candidate.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol.
+Understand: Check B's content/calculation review and the 3-day release checklist. Missing required evidence blocks release; ask with 2–3 options instead of assuming approval.
+Plan: Test the complete demo journey and prioritize only release-blocking defects.
+Execute: Verify search→detail/chart→PER→lesson/quiz→watchlist/progress restoration. Fix bounded A-owned blockers; record B-owned issues for handoff. Check links, reset, missing data, and accidental client-side secrets without printing secrets.
+Review: Produce a pass/fail/not-run checklist tied to the exact source version. Do not deploy or add features.
+Update shared JSON issues, requirements, release readiness, and next task. Output minimal Korean bullets.
+
+Task A-T07: Deploy and verify the approved release candidate.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json. Apply the Sites skill and reuse the existing project ID.
+Understand: Require passing release checks; confirm the source version and current audience. Ask with 2–3 options and stop if the target or access requirements are unclear.
+Plan: Package/deploy the exact reviewed source, preserve access settings, and retain the previous version for recovery.
+Execute: Publish through Sites, verify terminal deployment success, and test the deployed core journey. Obtain actual collaborator-access evidence; do not infer access from the owner's session. Request explicit approval before any sharing expansion.
+Review: Record deployment URL/version, checks, access evidence, failures, and recovery reference in the shared JSON. Mark blocked if required access remains unresolved.
+Reply in concise Korean bullets.
+
+Task A-T08: Complete A's handoff.
+Read docs/ROADMAP.md, docs/A_EXECUTION_PROTOCOL.md, and docs/WORK_PROGRESS.json; follow the protocol.
+Understand: Reconcile implemented behavior, B's review, deployment/access evidence, and remaining limitations.
+Plan: Prepare only the information needed to resume and demonstrate the MVP.
+Execute: Document startup, file ownership, deployment/version, browser-local storage/reset, known limits, a 5-minute demo, and prioritized next tasks. Include shared JSON and relevant source-version references; exclude credentials. Do not send messages or change sharing without authorization.
+Review: Compare every required roadmap item with evidence; identify unfinished items explicitly. If ambiguous, stop and ask with 2–3 options.
+Update shared JSON with final status, issues, additional requirements, handoff location, and next task. Respond in minimal Korean bullets.

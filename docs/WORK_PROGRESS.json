@@ -1,0 +1,390 @@
+{
+  "schema_version": "1.0.0",
+  "revision": 3,
+  "updated_at": "2026-10-27T21:07:54+09:00",
+  "roadmap": "docs/ROADMAP.md",
+  "protocol": "docs/A_EXECUTION_PROTOCOL.md",
+  "scope": "3-day MVP",
+  "app_root": ".",
+  "owners": {
+    "A": "user",
+    "B": null
+  },
+  "sync": {
+    "mode": "github_pending_push",
+    "shared_location": "https://github.com/huang-1331/invest_guide",
+    "write_policy": "single_writer; reread revision before atomic replacement",
+    "branches": {
+      "A": "tw",
+      "B": "main"
+    },
+    "canonical_progress": "docs/WORK_PROGRESS.json"
+  },
+  "decisions": [
+    {
+      "id": "A-T00-SCOPE",
+      "status": "confirmed_from_protocol",
+      "decision": "실제 앱 sites/jusik-guide, exports 제외. A는 dist/index.html/styles.css/app.js; B는 dist/data.js 및 API_CONTRACT.md/CONTENT_REVIEW.md. 기능 구현 없음. 서버/DB/프레임워크 전환 제외. 배포는 A-T07."
+    },
+    {
+      "id": "A-T00-MVP",
+      "status": "confirmed_from_roadmap",
+      "decision": "3일 MVP는 예시 기업 4·용어 10·수업 4·퀴즈 4·PER 1·관심기업/학습 기록 브라우저 저장 및 핵심 흐름. 실제 가격/공시는 선택. A는 사용자, B와 착수일 미정."
+    },
+    {
+      "id": "A-T00-GITHUB-BRANCHES",
+      "status": "confirmed_by_user",
+      "decision": "GitHub 기반 협업. B는 main, A(사용자)는 새 tw 브랜치. 현재 변경사항을 tw에 업로드한 후 최신 main을 tw로 병합. 대상 후보 huang-1331/invest_guide는 README 및 앱 파일이 로컬 프로젝트와 일치함을 확인. main 변경/강제 푸시/사이트 배포는 요청하지 않음."
+    },
+    {
+      "id": "A-T00-DOCS-CANONICAL",
+      "status": "confirmed_by_user",
+      "decision": "사용자 선택 1: 앱 저장소 docs/로 문서 정본 통합·실행 규칙 경로 갱신. 바깥 docs/는 정본으로 사용하지 않음."
+    }
+  ],
+  "issues": [
+    {
+      "id": "A-T00-COLLAB",
+      "problem": "B 담당자·공유 코드/진행 기록 위치·같은 버전 실행이 미확정",
+      "impact": "C01 공동 접근 및 A-T00 준비 완료 판정 불가. A-T01 착수 보류.",
+      "required_resolution": "사용자가 B 담당자와 공유 경로 또는 버전 ZIP 인계 방식을 선택하고 B의 접근/실행 및 단일 작성자 교대를 확인."
+    },
+    {
+      "id": "A-T00-CONTRACT",
+      "problem": "B의 API/콘텐츠 계약·검수 인계 없음",
+      "impact": "현재 data.js는 관찰한 프로토타입일 뿐 공동 합의 계약이 아님. A-T02 연결 기준 미확정.",
+      "required_resolution": "B가 필드·안정 ID·본문·퀴즈 정답/피드백·출처/예시/결측 규칙과 용어 10·수업 4·퀴즈 4의 인계 계획 및 검수 근거 제공."
+    },
+    {
+      "id": "A-T00-GITHUB-LAYOUT",
+      "problem": "정본 docs/WORK_PROGRESS.json 및 실행 규칙은 앱 Git 저장소 밖. 원격은 dist/와 docs/가 저장소 루트에 있음. 기존 규칙은 정본을 앱 밖에 두도록 명시하므로 임의 이동/복제 시 정본 경계가 바뀜. 로컬과 원격 main은 공통 조상도 없음.",
+      "impact": "원격 main fetch 및 차이 검토까지 완료. tw 생성/업로드/병합은 문서 공유 구조 응답까지 중단.",
+      "required_resolution": "① 앱 저장소 안 docs/로 정본 통합 및 규칙 경로 갱신(권장) ② 기존 정본 유지·저장소 docs/에 동기화 사본을 두는 방식 중 선택. 확정 후 로컬 기준 보존 및 최신 B 파일을 유지하는 병합 수행.",
+      "status": "resolved",
+      "resolution": "사용자 선택 1에 따라 문서 이동 및 실행 규칙 경로 갱신. 별도 이력 병합은 보존 방식으로 수행 예정."
+    }
+  ],
+  "additional_requirements": [
+    {
+      "id": "A-T00-USER-CHOICE",
+      "question": "협업 기준을 어떤 방식으로 확정할까요?",
+      "options": [
+        "기존 공유 저장소 사용: B 담당자·저장소/진행 파일 경로·계약 인계 위치를 제공하고 B의 동일 버전 실행을 확인.",
+        "버전 ZIP 인계: B 담당자·전달 위치·진행 파일 작성자 교대 및 계약 확인 방식을 먼저 지정. 지정 전 ZIP 작성/전달하지 않음.",
+        "B 인계 대기: 공유 접근과 계약이 확정될 때까지 A-T00 blocked 유지."
+      ],
+      "status": "resolved_by_user",
+      "resolution": "GitHub 기반 협업, B main / A tw 선택. 문서 정본의 공유 경로는 별도 확인 필요."
+    },
+    {
+      "id": "A-T00-HANDOFF",
+      "requirement": "후속 담당자는 아래 source_version의 동일 버전 및 docs/WORK_PROGRESS.json revision을 확인해야 함. 현 기록은 로컬 전용이며 B에게 전송/공유되지 않음. 공유 또는 버전 인계 후 다음 작성자 진행."
+    },
+    {
+      "id": "A-T00-GITHUB-LAYOUT-CHOICE",
+      "status": "resolved_by_user",
+      "question": "공용 진행 문서를 GitHub에 포함할 경로를 어떻게 정할까요?",
+      "options": [
+        "앱 저장소 docs/로 정본 통합하고 실행 규칙 경로도 갱신(권장).",
+        "기존 정본은 유지하고 GitHub 저장소 docs/에 동기화 사본을 관리."
+      ],
+      "resolution": "선택 1: 저장소 docs/ 정본 통합"
+    }
+  ],
+  "next_task": "A-T00",
+  "tasks": {
+    "A-T00": {
+      "owner": "A",
+      "objective": "착수·협업 경계 확인",
+      "depends_on": [],
+      "status": "blocked",
+      "changes": [
+        "실제 앱 sites/jusik-guide 확인. exports는 인계본으로 제외. 기능 구현·B 파일 수정·배포 없음. 이번 수정은 진행 기록뿐.",
+        "3일 MVP와 A/B 소유권 및 A-T07에서만 배포하는 경계 확인. 실제 데이터 연결은 선택 사항.",
+        "기존 동작·현재 데이터 형태·누락된 B 인계·공동 접근 선행 조건과 A-T01 완료 기준을 기록.",
+        "로컬 미리보기 서버와 점검용 브라우저 탭을 실행 후 정리.",
+        "사용자 GitHub 협업·A tw/B main 결정을 기록. GitHub 연결로 invest_guide 식별 후 main ebc8c738dd36ed197d040b13de4487f96d9bc9d0 fetch 및 차이 확인. 현재 앱/브랜치 파일은 변경하지 않음.",
+        "사용자 선택 1에 따라 바깥 docs/의 네 문서를 앱 저장소 docs/로 이동. 프로토콜에 정본·A tw/B main 규칙 명시. 로컬 tw 생성 및 origin 연결."
+      ],
+      "checks": [
+        {
+          "item": "필수 문서 및 적용 AGENTS.md",
+          "status": "passed",
+          "evidence": "ROADMAP.md, A_EXECUTION_PROTOCOL.md, 최신 WORK_PROGRESS.json revision 0 읽음. 루트부터 프로젝트까지 상위 경로와 프로젝트 하위에 AGENTS.md 없음."
+        },
+        {
+          "item": "앱 경로와 로컬 코드 접근",
+          "status": "passed",
+          "evidence": "sites/jusik-guide의 README, dist 파일 4개, hosting.json 읽기 성공. 앱 Git HEAD 2511efe7d6f03ab64e01f778750d44df855ed935; git status --short 출력 없음. 상위 프로젝트는 Git 저장소가 아님."
+        },
+        {
+          "item": "로컬 시작 및 파일 제공",
+          "status": "passed",
+          "evidence": "python3 -m http.server 8765 --bind 127.0.0.1 --directory sites/jusik-guide/dist 실행. 최초 제한 환경의 소켓 접근 실패 후 승인된 실행으로 성공. index.html/styles.css/app.js/data.js 모두 HTTP 200, 응답 바이트가 디스크와 일치. 별도 빌드·설치 불필요."
+        },
+        {
+          "item": "브라우저 초기 실행",
+          "status": "passed",
+          "evidence": "IAB http://127.0.0.1:8765/에서 홈 제목, 기업 4개, 검색 입력, 메뉴, 예시 표시, 수업 미리보기와 PER 진입 버튼 렌더링 확인. 점검용 탭 종료."
+        },
+        {
+          "item": "기존 동작 및 데이터 경계 조사",
+          "status": "passed",
+          "evidence": "소스 확인: 검색/업종 필터, 기업 상세/예시 차트, 해시 경로, 관심기업 localStorage(jusik:saved), PER 실습, 퀴즈 피드백 존재. 기업 4개·수업 메타 4개·용어 5개. 수업 본문 및 퀴즈 4개는 app.js에 하드코딩. 학습 기록 저장 없음. 이는 소스 조사이며 전체 상호작용 통과 판정은 아님."
+        },
+        {
+          "item": "현재 repository 형태 조사",
+          "status": "passed",
+          "evidence": "data.js exports companies, lessons, terms, repository. repository.mode=demo; async listCompanies(), getCompany(id), listLessons(). 기업: id/name/initial/sector/market/price/change/tone/points. 수업: n/category/title/text/time/tag/icon. 용어: term/ko/text/formula(선택). B가 승인한 최종 계약으로 간주하지 않음."
+        },
+        {
+          "item": "B 계약 및 검수 인계",
+          "status": "failed",
+          "evidence": "docs/API_CONTRACT.md, docs/CONTENT_REVIEW.md 없음. B 담당자 null. 용어 목표 10개 대비 현재 5개, 퀴즈/본문의 B 데이터 인계 및 계약 승인 근거 없음."
+        },
+        {
+          "item": "진행 파일 로컬 읽기 및 기록",
+          "status": "passed",
+          "evidence": "docs/WORK_PROGRESS.json 정본 접근 가능. sync.mode=local_only, shared_location=null. 저장 직전 revision과 원문 재확인, 임시 JSON 파싱 후 원자 교체 및 revision 증가 검증."
+        },
+        {
+          "item": "B의 같은 코드 버전 실행·공유 진행 파일 접근",
+          "status": "not_run",
+          "evidence": "공유 위치와 B 담당자 미확정. 앱 Git remote 이름 없음, docs/WORK_PROGRESS.json은 앱 Git 저장소 밖. B의 접근·동일 버전 실행·작성자 교대 확인 필요."
+        },
+        {
+          "item": "핵심 흐름 전체·저장 복원·직접 링크·모바일·키보드",
+          "status": "not_run",
+          "evidence": "A-T00은 기준선 조사만 수행. 후속 A-T01~A-T06에서 실제 상호작용 검증 필요."
+        },
+        {
+          "item": "호스팅 접근 및 공개 범위",
+          "status": "not_run",
+          "evidence": "hosting.json 기존 project_id appgprj_6ae085f5eeb4819186e2b1691f0f3647와 static.directory=dist 확인. 원격 Sites 상태·협업자 접근·공개 범위는 이번 로컬 작업에서 조회/변경/배포하지 않음."
+        },
+        {
+          "item": "GitHub 저장소·브랜치 조사",
+          "status": "passed",
+          "evidence": "GitHub 플러그인 목록 및 README 조회로 huang-1331/invest_guide가 현재 앱 프로젝트와 일치함을 확인. 원격 main 존재, tw 없음. 로컬 main 2511efe, remote 미설정, 작업 트리 깨끗함."
+        },
+        {
+          "item": "최신 main 가져오기·비교",
+          "status": "passed",
+          "evidence": "git fetch 성공. FETCH_HEAD=ebc8c738dd36ed197d040b13de4487f96d9bc9d0. A UI 파일 3개 동일. 원격 main에 B의 확장 data.js, B01_HANDOFF.md, CONTENT_REVIEW.md, ROADMAP.md, README/ignore 변경 존재. 공통 조상 없음(merge-base 결과 1)."
+        },
+        {
+          "item": "B 인계 최신 확인",
+          "status": "passed",
+          "evidence": "원격 main B01_HANDOFF 및 CONTENT_REVIEW 읽음. B01 기업4/용어10/수업4/퀴즈4/PER 데이터 준비 및 B02 정적 검수 기록 있음. app.js UI 연결은 별도 미완료. API_CONTRACT.md는 원격 파일 목록에도 없음. B 실제 공동 실행 여부는 확인하지 못함."
+        },
+        {
+          "item": "tw 생성·업로드 및 main 병합",
+          "status": "not_run",
+          "evidence": "문서 정본 경로가 실행 규칙과 원격 저장소 구조 사이에서 미확정이므로 프로토콜에 따라 중단. main은 fetch만 수행, 로컬 또는 원격 브랜치를 변경하지 않음."
+        },
+        {
+          "item": "문서 정본 이동",
+          "status": "passed",
+          "evidence": "ROADMAP.md/A_EXECUTION_PROTOCOL.md/A_TASK_PROMPTS.txt/WORK_PROGRESS.json 저장소 docs/로 이동. 기존 바깥 사본 제거. revision 2→3. 다른 작업 기록 보존."
+        }
+      ],
+      "issues": [
+        {
+          "id": "A-T00-COLLAB",
+          "problem": "B 담당자·공유 코드/진행 기록 위치·같은 버전 실행이 미확정",
+          "impact": "C01 공동 접근 및 A-T00 준비 완료 판정 불가. A-T01 착수 보류.",
+          "required_resolution": "사용자가 B 담당자와 공유 경로 또는 버전 ZIP 인계 방식을 선택하고 B의 접근/실행 및 단일 작성자 교대를 확인."
+        },
+        {
+          "id": "A-T00-CONTRACT",
+          "problem": "B의 API/콘텐츠 계약·검수 인계 없음",
+          "impact": "현재 data.js는 관찰한 프로토타입일 뿐 공동 합의 계약이 아님. A-T02 연결 기준 미확정.",
+          "required_resolution": "B가 필드·안정 ID·본문·퀴즈 정답/피드백·출처/예시/결측 규칙과 용어 10·수업 4·퀴즈 4의 인계 계획 및 검수 근거 제공."
+        },
+        {
+          "id": "A-T00-GITHUB-LAYOUT",
+          "problem": "정본 docs/WORK_PROGRESS.json 및 실행 규칙은 앱 Git 저장소 밖. 원격은 dist/와 docs/가 저장소 루트에 있음. 기존 규칙은 정본을 앱 밖에 두도록 명시하므로 임의 이동/복제 시 정본 경계가 바뀜. 로컬과 원격 main은 공통 조상도 없음.",
+          "impact": "원격 main fetch 및 차이 검토까지 완료. tw 생성/업로드/병합은 문서 공유 구조 응답까지 중단.",
+          "required_resolution": "① 앱 저장소 안 docs/로 정본 통합 및 규칙 경로 갱신(권장) ② 기존 정본 유지·저장소 docs/에 동기화 사본을 두는 방식 중 선택. 확정 후 로컬 기준 보존 및 최신 B 파일을 유지하는 병합 수행.",
+          "status": "resolved",
+          "resolution": "사용자 선택 1에 따라 문서 이동 및 실행 규칙 경로 갱신. 별도 이력 병합은 보존 방식으로 수행 예정."
+        }
+      ],
+      "additional_requirements": [
+        {
+          "id": "A-T00-USER-CHOICE",
+          "question": "협업 기준을 어떤 방식으로 확정할까요?",
+          "options": [
+            "기존 공유 저장소 사용: B 담당자·저장소/진행 파일 경로·계약 인계 위치를 제공하고 B의 동일 버전 실행을 확인.",
+            "버전 ZIP 인계: B 담당자·전달 위치·진행 파일 작성자 교대 및 계약 확인 방식을 먼저 지정. 지정 전 ZIP 작성/전달하지 않음.",
+            "B 인계 대기: 공유 접근과 계약이 확정될 때까지 A-T00 blocked 유지."
+          ],
+          "status": "resolved_by_user",
+          "resolution": "GitHub 기반 협업, B main / A tw 선택. 문서 정본의 공유 경로는 별도 확인 필요."
+        },
+        {
+          "id": "A-T00-HANDOFF",
+          "requirement": "후속 담당자는 아래 source_version의 동일 버전 및 docs/WORK_PROGRESS.json revision을 확인해야 함. 현 기록은 로컬 전용이며 B에게 전송/공유되지 않음. 공유 또는 버전 인계 후 다음 작성자 진행."
+        },
+        {
+          "id": "A-T00-GITHUB-LAYOUT-CHOICE",
+          "status": "resolved_by_user",
+          "question": "공용 진행 문서를 GitHub에 포함할 경로를 어떻게 정할까요?",
+          "options": [
+            "앱 저장소 docs/로 정본 통합하고 실행 규칙 경로도 갱신(권장).",
+            "기존 정본은 유지하고 GitHub 저장소 docs/에 동기화 사본을 관리."
+          ],
+          "resolution": "선택 1: 저장소 docs/ 정본 통합"
+        }
+      ],
+      "next_task": "A-T00",
+      "updated_at": "2026-10-27T21:07:54+09:00",
+      "source_version": {
+        "git_commit": "2511efe7d6f03ab64e01f778750d44df855ed935",
+        "app_root": "sites/jusik-guide",
+        "sha256": {
+          "sites/jusik-guide/dist/app.js": "bb1cd7050dc2355ed51c6bbd795f3319cf89ae643f967b1c81e6892c362722b2",
+          "sites/jusik-guide/dist/data.js": "934e42f7fd989ea2ce9ff0e9da5412c34698dbec4448889937e0434df4980e05",
+          "sites/jusik-guide/dist/index.html": "3f525a77573ebc7be75784dc5c04fd34ab3530f7f57b28041d9a4df51f193494",
+          "sites/jusik-guide/dist/styles.css": "a326fbf007274ec490e5c30fa5b58320eaac0b0048f5f129c24ca562a508ebcd"
+        }
+      },
+      "prerequisites": [
+        "B 담당자·공유 방식·단일 작성자 교대 확정",
+        "두 사람이 같은 앱 버전과 최신 진행 기록에 접근하고 로컬 실행 성공 확인",
+        "현재 데이터 형태에 대한 B의 확인 및 계약/콘텐츠 인계 계획 확정"
+      ],
+      "completion_criteria": [
+        "로컬 서버 및 브라우저 앱 초기 렌더링 성공",
+        "소유권·범위·현재 동작·미완료 사항 기록",
+        "공동 코드/진행 접근과 동일 버전 실행을 B 근거로 확인",
+        "B 데이터 계약의 확정/미확정 구분 및 인계 의존성 해소"
+      ],
+      "readiness": {
+        "verified": "A 로컬 실행·초기 렌더링·소유권·현재 데이터 구조 조사 완료",
+        "pending_collaborator_confirmation": "문서 정본 공유 구조 선택, B 실제 접근/실행 및 API 계약 확인. 원격 B01/B02 인계는 확인됨.",
+        "A-T01": "blocked; 확인 후 별도 사용자 작업 지시에서 착수. 검색→상세→닫기, 직접 링크 새로고침, 뒤/앞 이동, 잘못된 ID 검증이 완료 기준."
+      }
+    },
+    "A-T01": {
+      "owner": "A",
+      "objective": "기업 탐색·직접 링크",
+      "depends_on": [
+        "A-T00"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T02",
+      "updated_at": null,
+      "source_version": null
+    },
+    "A-T02": {
+      "owner": "A",
+      "objective": "교육 데이터 연결",
+      "depends_on": [
+        "A-T01"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T03",
+      "updated_at": null,
+      "source_version": null
+    },
+    "A-T03": {
+      "owner": "A",
+      "objective": "관심기업·학습 저장",
+      "depends_on": [
+        "A-T02"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T04",
+      "updated_at": null,
+      "source_version": null
+    },
+    "A-T04": {
+      "owner": "A",
+      "objective": "예시·미연결·빈 상태",
+      "depends_on": [
+        "A-T03"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T05",
+      "updated_at": null,
+      "source_version": null
+    },
+    "A-T05": {
+      "owner": "A",
+      "objective": "모바일·키보드·모달",
+      "depends_on": [
+        "A-T04"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T06",
+      "updated_at": null,
+      "source_version": null
+    },
+    "A-T06": {
+      "owner": "A",
+      "objective": "통합 검증·출시 후보",
+      "depends_on": [
+        "A-T05"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T07",
+      "updated_at": null,
+      "source_version": null
+    },
+    "A-T07": {
+      "owner": "A",
+      "objective": "배포·접근 검증",
+      "depends_on": [
+        "A-T06"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T08",
+      "updated_at": null,
+      "source_version": null
+    },
+    "A-T08": {
+      "owner": "A",
+      "objective": "최종 인수인계",
+      "depends_on": [
+        "A-T07"
+      ],
+      "status": "pending",
+      "changes": [],
+      "checks": [],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": null,
+      "updated_at": null,
+      "source_version": null
+    }
+  }
+}
