@@ -1,29 +1,48 @@
 # 주식의 이해
-한국어 투자·교육 웹앱의 UI 프로토타입. 원래 상장폐지 예측 연구와 분리된 서비스 프레임입니다.
+한국어 투자·교육 웹앱. 기존 UI와 B01~B04 교육 데이터·검수 문서를 유지하면서 서버 측 OpenDART 재무정보 조회를 추가했습니다. 연구용 RandomForest, 위험 등급·확률은 구현하지 않습니다.
 
-## 실행
-정적 서버로 dist/를 제공합니다. 빌드 및 패키지 설치 불필요.
+## 실행 (Node.js 22 이상)
+```sh
+npm start
+```
+http://localhost:4173 에서 실행됩니다. 서버 런타임 의존성·빌드·DB가 없습니다. 키가 없으면 교육 화면은 동작하고 재무정보는 `자료 없음`으로 표시됩니다.
+
+실제 조회는 **새로 발급받은 미노출 키**를 서버 환경변수 `OPENDART_API_KEY`에 설정한 뒤 서버를 재시작합니다. 앞서 노출된 키는 사용하지 않고 OpenDART 관리 화면에서 폐기/재발급해야 합니다. 키를 채팅·브라우저 설정·GitHub 소스에 입력하지 않습니다.
+
+로컬에서는 `.env.example`을 `.env`로 복사하여 새 키를 편집한 뒤 다음과 같이 실행할 수도 있습니다 (`.env`는 Git에서 제외):
+```sh
+node --env-file=.env server/index.js
+```
+운영 환경에서는 호스팅 서비스의 **서버 전용 secret 설정**을 사용합니다. `VITE_`, `PUBLIC_` 등 브라우저 노출 접두사는 사용하지 않습니다. `HOST=0.0.0.0`은 컨테이너 외부 접근이 필요할 때만 설정하고 HTTPS 프록시 뒤에서 운영합니다.
+
+기존 정적 미리보기도 가능합니다: `python3 -m http.server 4173 --directory dist`. 이 방식에서는 `/api`가 없으므로 재무정보는 자료 없음으로 표시됩니다. 기존 Sites 정적 호스팅 설정은 보존했습니다. **정적 파일만 배포하면 API는 동작하지 않습니다.** Node 서버 또는 동일 출처의 `/api` 프록시가 필요하며 이 PR에서는 배포하지 않습니다.
+
+## 제공 범위
+- 삼성전자(005930), SK하이닉스(000660), NAVER(035420), 현대자동차(005380).
+- 기업 상세 → 사업연도·보고서·연결/별도 선택 → 실제 공시 재무정보 조회.
+- 기본은 전년도 사업보고서(예: 2026년 접속 시 2025년). 최신 공시 자동선택이 아닙니다.
+- 자산·부채·자본·자본금·매출·영업이익·당기순이익·영업현금흐름. 분·반기 손익은 누적금액, 재무상태는 기말, 현금흐름은 해당 누적기간입니다.
+- 실제 자료의 출처·공시 원문·재무 기준일·공시일·조회 시각·원/KRW·연결/별도 표시. 공시일 조회 실패는 자료 없음으로 유지합니다.
+- 가격·등락률·차트·PER 실습은 기존 **임의 예시**입니다. 실제 재무자료와 합쳐 PER·위험 점수를 계산하지 않습니다.
+- API 실패·결측·중복 계정·통화 불일치는 null/자료 없음. 위험 평가는 항상 평가 불가.
 
 ## 구조
-- dist/index.html: 앱 프레임, 내비게이션, 접근 가능한 모달
-- dist/styles.css: 반응형 디자인
-- dist/app.js: 화면 이동과 브라우저 내 시연 상호작용
-- dist/data.js: 예시 데이터 및 비동기 repository 인터페이스
+- `server/opendart.js`: 서버 전용 공급원 어댑터, 회사 고유번호, 계정 매핑, 누적금액·결측·출처 처리, 캐시·요청 합치기.
+- `server/index.js`: `dist/` 제공 및 `GET /api/companies/:id/financials`.
+- `dist/data.js`: 기존 B01 export/repository 유지, `getFinancials` HTTP 메서드 추가.
+- `dist/financials.js`: 재무정보 표시, 비동기 응답 경합 방지, 입력 폼.
+- `dist/app.js`, `dist/styles.css`: 기존 상세 화면에 조회 블록 연결.
+- `docs/OPENDART_INTEGRATION.md`: 계약·테스트 결과·배포 전 조건.
+- B01~B04 문서는 기존 시점의 기록이며 이번 통합 결과는 새 문서에서 확인합니다. 기존 수업의 4지선다 연결·학습기록 등 미완료 항목을 이번 PR에서 완료로 변경하지 않습니다.
 
-## 동작 범위
-기업 검색·업종 필터·관심기업(브라우저 저장), 학습 미리보기·퀴즈·용어 해설·가상 PER 실습. 가격과 차트는 임의 예시입니다. 서버 기능과 실제 투자 위험 분석은 구현하지 않았습니다.
+## 검증
+```sh
+npm test
+npm run test:live
+```
+`npm test`는 키·네트워크 없이 모의 OpenDART 응답으로 실행합니다. `test:live`는 새 키가 설정된 경우에만 네 기업을 실제 조회하며, 키가 없으면 종료 코드 2로 미실행을 알립니다. `.env`를 사용할 때는 `node --env-file=.env scripts/check-opendart.js`로 실행합니다. API 호출·로그에 키 값이나 원본 오류를 출력하지 않습니다.
 
-## 백엔드 확장
-repository의 listCompanies/getCompany/listLessons를 HTTP 어댑터로 교체할 수 있습니다. 회사 종목코드와 교육 개념 식별자를 유지합니다. 현재 secret·외부 API 호출·DB 바인딩은 없습니다.
+브라우저 회귀 테스트는 선택적으로 `npm install --no-save playwright`, `npx playwright install chromium` 후 `npm run test:browser`로 실행합니다. 합성 응답을 사용하는 로컬 통합 테스트이며 실제 공급원 성공 증거가 아닙니다.
 
-예정 API: GET /api/companies?q=&sector=, GET /api/companies/:id, GET /api/companies/:id/prices?period=, GET /api/companies/:id/events, GET /api/companies/:id/risk-signals, GET /api/concepts, GET /api/lessons. 로그인 이후 사용자별 관심기업·학습 기록 별도 추가.
-
-실제 응답에는 source, observed_at, available_at, updated_at, is_demo, missing_reason, verification_status를 포함하고 자료 부족은 평가 불가로 표시해야 합니다. 재무·시장·공시 위험을 구분하고 검증 전 연구 모델을 전 업종 위험 점수로 사용하지 않습니다. API 키는 서버 환경변수로만 관리합니다. 공급원별 표시·재배포 조건과 교육 콘텐츠 검수를 연결 전에 확인합니다.
-
-기술 스택·공급원·위험 임계값·인증 방식은 미확정이며 현재 정적 구조는 후속 API 및 서버 앱으로 이전 가능합니다.
-
-## 협업
-- 3일 MVP 역할·일정: [docs/ROADMAP.md](docs/ROADMAP.md)
-- 로컬 실행: `python3 -m http.server 4173 --directory dist` 후 http://localhost:4173 열기. ES 모듈을 사용하므로 file://로 직접 열지 않습니다.
-- 실행·미리보기는 로그인이나 API 키 없이 가능합니다.
-- `.openai/hosting.json`은 기존 Sites 배포의 식별자를 보존합니다. 별도 사이트로 복제할 때 그대로 배포하지 않습니다.
+## 자료 이용
+출처는 금융감독원 OpenDART이며 원문 링크를 함께 제공합니다. 운영 전 [OpenDART 이용약관](https://opendart.fss.or.kr/intro/terms.do), 키의 요청 한도·허용 IP, 재배포 조건을 서비스 운영자가 확인해야 합니다. 조회 결과는 투자 권유·상장폐지 예측이 아닙니다.

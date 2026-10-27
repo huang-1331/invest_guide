@@ -201,6 +201,15 @@ export function calculatePer(price, eps) {
 export const dataMeta = {mode:'demo',priceType:'illustrative',source:'교육용 임의 생성 데이터',asOf:null,disclaimer:'기업명과 종목코드는 실제 식별정보이나 가격·등락률·차트는 가상의 예시이며 실제 시세가 아닙니다.'};
 export const repository={
   mode:'demo',
+  async getFinancials(id, {year=String(new Date().getFullYear()-1),reportCode='11011',fsDiv='CFS'}={}){
+    try {
+      const response=await fetch(`/api/companies/${encodeURIComponent(id)}/financials?${new URLSearchParams({year,reportCode,fsDiv})}`, {signal:AbortSignal.timeout(25000)});
+      if(!response.ok)throw new Error('API unavailable');
+      const data=await response.json();
+      if(!['ok','partial','unavailable'].includes(data.status)||data.is_demo!==false||!Array.isArray(data.metrics))throw new Error('Invalid response');
+      return data;
+    }catch{return {status:'unavailable',is_demo:false,metrics:[],missing_reason:'api_unavailable',risk:{label:'평가 불가'}};}
+  },
   async listCompanies(){return companies},
   async getCompany(id){return companies.find(c=>c.id===id) ?? null},
   async listLessons(){return lessons},
