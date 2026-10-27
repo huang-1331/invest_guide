@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "revision": 3,
-  "updated_at": "2026-10-27T21:07:54+09:00",
+  "revision": 4,
+  "updated_at": "2026-10-27T21:10:08+09:00",
   "roadmap": "docs/ROADMAP.md",
   "protocol": "docs/A_EXECUTION_PROTOCOL.md",
   "scope": "3-day MVP",
@@ -11,14 +11,15 @@
     "B": null
   },
   "sync": {
-    "mode": "github_pending_push",
+    "mode": "github",
     "shared_location": "https://github.com/huang-1331/invest_guide",
     "write_policy": "single_writer; reread revision before atomic replacement",
     "branches": {
       "A": "tw",
       "B": "main"
     },
-    "canonical_progress": "docs/WORK_PROGRESS.json"
+    "canonical_progress": "docs/WORK_PROGRESS.json",
+    "progress_branch": "tw"
   },
   "decisions": [
     {
@@ -47,13 +48,17 @@
       "id": "A-T00-COLLAB",
       "problem": "B 담당자·공유 코드/진행 기록 위치·같은 버전 실행이 미확정",
       "impact": "C01 공동 접근 및 A-T00 준비 완료 판정 불가. A-T01 착수 보류.",
-      "required_resolution": "사용자가 B 담당자와 공유 경로 또는 버전 ZIP 인계 방식을 선택하고 B의 접근/실행 및 단일 작성자 교대를 확인."
+      "required_resolution": "사용자가 B 담당자와 공유 경로 또는 버전 ZIP 인계 방식을 선택하고 B의 접근/실행 및 단일 작성자 교대를 확인.",
+      "status": "partially_resolved",
+      "resolution": "공유 저장소 및 A tw/B main 확정, A의 읽기/업로드 및 B main 산출물 확인. B 실명·GitHub 계정·동일 버전 공동 실행 확인은 미완료."
     },
     {
       "id": "A-T00-CONTRACT",
       "problem": "B의 API/콘텐츠 계약·검수 인계 없음",
       "impact": "현재 data.js는 관찰한 프로토타입일 뿐 공동 합의 계약이 아님. A-T02 연결 기준 미확정.",
-      "required_resolution": "B가 필드·안정 ID·본문·퀴즈 정답/피드백·출처/예시/결측 규칙과 용어 10·수업 4·퀴즈 4의 인계 계획 및 검수 근거 제공."
+      "required_resolution": "B가 필드·안정 ID·본문·퀴즈 정답/피드백·출처/예시/결측 규칙과 용어 10·수업 4·퀴즈 4의 인계 계획 및 검수 근거 제공.",
+      "status": "partially_resolved",
+      "resolution": "B01 데이터·인계 및 B02 CONTENT_REVIEW.md를 main에서 수신. API_CONTRACT.md 및 A/B 계약 최종 합의, 화면 통합은 미완료."
     },
     {
       "id": "A-T00-GITHUB-LAYOUT",
@@ -78,7 +83,7 @@
     },
     {
       "id": "A-T00-HANDOFF",
-      "requirement": "후속 담당자는 아래 source_version의 동일 버전 및 docs/WORK_PROGRESS.json revision을 확인해야 함. 현 기록은 로컬 전용이며 B에게 전송/공유되지 않음. 공유 또는 버전 인계 후 다음 작성자 진행."
+      "requirement": "공용 정본은 GitHub tw의 docs/WORK_PROGRESS.json. B는 main에서 작업하며 tw 진행 기록을 확인하고 병합 시 양쪽 기록·revision 보존. B 실제 동일 버전 실행 확인은 별도 필요."
     },
     {
       "id": "A-T00-GITHUB-LAYOUT-CHOICE",
@@ -104,7 +109,9 @@
         "기존 동작·현재 데이터 형태·누락된 B 인계·공동 접근 선행 조건과 A-T01 완료 기준을 기록.",
         "로컬 미리보기 서버와 점검용 브라우저 탭을 실행 후 정리.",
         "사용자 GitHub 협업·A tw/B main 결정을 기록. GitHub 연결로 invest_guide 식별 후 main ebc8c738dd36ed197d040b13de4487f96d9bc9d0 fetch 및 차이 확인. 현재 앱/브랜치 파일은 변경하지 않음.",
-        "사용자 선택 1에 따라 바깥 docs/의 네 문서를 앱 저장소 docs/로 이동. 프로토콜에 정본·A tw/B main 규칙 명시. 로컬 tw 생성 및 origin 연결."
+        "사용자 선택 1에 따라 바깥 docs/의 네 문서를 앱 저장소 docs/로 이동. 프로토콜에 정본·A tw/B main 규칙 명시. 로컬 tw 생성 및 origin 연결.",
+        "현재 문서 변경을 GitHub tw c120c141b8ca73765c2a689bb01091b620f9302e에 업로드. 로컬 원본 이력은 local/a-baseline-20261027에 보존.",
+        "최신 main 705deda00bb8b5f7daabd4d49699951517b200a7을 tw에 충돌 없이 병합. B data.js/인계/검수 기록 보존. README에 브랜치·정본 안내 추가."
       ],
       "checks": [
         {
@@ -186,6 +193,16 @@
           "item": "문서 정본 이동",
           "status": "passed",
           "evidence": "ROADMAP.md/A_EXECUTION_PROTOCOL.md/A_TASK_PROMPTS.txt/WORK_PROGRESS.json 저장소 docs/로 이동. 기존 바깥 사본 제거. revision 2→3. 다른 작업 기록 보존."
+        },
+        {
+          "item": "초기 tw GitHub 업로드",
+          "status": "passed",
+          "evidence": "GitHub create_tree/create_commit/create_branch 성공. 로컬 git push는 인증 실패하여 연결된 GitHub 플러그인 사용. 원격 tw를 git fetch하여 c120c141b8ca73765c2a689bb01091b620f9302e 확인."
+        },
+        {
+          "item": "main 병합과 소유 파일 보존",
+          "status": "passed",
+          "evidence": "로컬 병합 171c25ceeb58ee9a01060114ee570b5ba05ac8e4; main 705deda00bb8b5f7daabd4d49699951517b200a7 조상 포함. B data.js/B01_HANDOFF/CONTENT_REVIEW는 main과 바이트 동일. A UI 3개와 hosting.json은 원래 로컬 버전과 바이트 동일. 병합 충돌 없음."
         }
       ],
       "issues": [
@@ -193,13 +210,17 @@
           "id": "A-T00-COLLAB",
           "problem": "B 담당자·공유 코드/진행 기록 위치·같은 버전 실행이 미확정",
           "impact": "C01 공동 접근 및 A-T00 준비 완료 판정 불가. A-T01 착수 보류.",
-          "required_resolution": "사용자가 B 담당자와 공유 경로 또는 버전 ZIP 인계 방식을 선택하고 B의 접근/실행 및 단일 작성자 교대를 확인."
+          "required_resolution": "사용자가 B 담당자와 공유 경로 또는 버전 ZIP 인계 방식을 선택하고 B의 접근/실행 및 단일 작성자 교대를 확인.",
+          "status": "partially_resolved",
+          "resolution": "공유 저장소 및 A tw/B main 확정, A의 읽기/업로드 및 B main 산출물 확인. B 실명·GitHub 계정·동일 버전 공동 실행 확인은 미완료."
         },
         {
           "id": "A-T00-CONTRACT",
           "problem": "B의 API/콘텐츠 계약·검수 인계 없음",
           "impact": "현재 data.js는 관찰한 프로토타입일 뿐 공동 합의 계약이 아님. A-T02 연결 기준 미확정.",
-          "required_resolution": "B가 필드·안정 ID·본문·퀴즈 정답/피드백·출처/예시/결측 규칙과 용어 10·수업 4·퀴즈 4의 인계 계획 및 검수 근거 제공."
+          "required_resolution": "B가 필드·안정 ID·본문·퀴즈 정답/피드백·출처/예시/결측 규칙과 용어 10·수업 4·퀴즈 4의 인계 계획 및 검수 근거 제공.",
+          "status": "partially_resolved",
+          "resolution": "B01 데이터·인계 및 B02 CONTENT_REVIEW.md를 main에서 수신. API_CONTRACT.md 및 A/B 계약 최종 합의, 화면 통합은 미완료."
         },
         {
           "id": "A-T00-GITHUB-LAYOUT",
@@ -224,7 +245,7 @@
         },
         {
           "id": "A-T00-HANDOFF",
-          "requirement": "후속 담당자는 아래 source_version의 동일 버전 및 docs/WORK_PROGRESS.json revision을 확인해야 함. 현 기록은 로컬 전용이며 B에게 전송/공유되지 않음. 공유 또는 버전 인계 후 다음 작성자 진행."
+          "requirement": "공용 정본은 GitHub tw의 docs/WORK_PROGRESS.json. B는 main에서 작업하며 tw 진행 기록을 확인하고 병합 시 양쪽 기록·revision 보존. B 실제 동일 버전 실행 확인은 별도 필요."
         },
         {
           "id": "A-T00-GITHUB-LAYOUT-CHOICE",
@@ -238,7 +259,7 @@
         }
       ],
       "next_task": "A-T00",
-      "updated_at": "2026-10-27T21:07:54+09:00",
+      "updated_at": "2026-10-27T21:10:08+09:00",
       "source_version": {
         "git_commit": "2511efe7d6f03ab64e01f778750d44df855ed935",
         "app_root": "sites/jusik-guide",
@@ -247,7 +268,9 @@
           "sites/jusik-guide/dist/data.js": "934e42f7fd989ea2ce9ff0e9da5412c34698dbec4448889937e0434df4980e05",
           "sites/jusik-guide/dist/index.html": "3f525a77573ebc7be75784dc5c04fd34ab3530f7f57b28041d9a4df51f193494",
           "sites/jusik-guide/dist/styles.css": "a326fbf007274ec490e5c30fa5b58320eaac0b0048f5f129c24ca562a508ebcd"
-        }
+        },
+        "integrated_main": "705deda00bb8b5f7daabd4d49699951517b200a7",
+        "local_merge": "171c25ceeb58ee9a01060114ee570b5ba05ac8e4"
       },
       "prerequisites": [
         "B 담당자·공유 방식·단일 작성자 교대 확정",
@@ -261,8 +284,8 @@
         "B 데이터 계약의 확정/미확정 구분 및 인계 의존성 해소"
       ],
       "readiness": {
-        "verified": "A 로컬 실행·초기 렌더링·소유권·현재 데이터 구조 조사 완료",
-        "pending_collaborator_confirmation": "문서 정본 공유 구조 선택, B 실제 접근/실행 및 API 계약 확인. 원격 B01/B02 인계는 확인됨.",
+        "verified": "A 로컬 실행·공유 GitHub tw 업로드·최신 main 로컬 병합·소유 파일 보존 검증 완료",
+        "pending_collaborator_confirmation": "B 실제 동일 버전 실행 및 API 계약 최종 확인. 원격 B01/B02 자료 수신 완료.",
         "A-T01": "blocked; 확인 후 별도 사용자 작업 지시에서 착수. 검색→상세→닫기, 직접 링크 새로고침, 뒤/앞 이동, 잘못된 ID 검증이 완료 기준."
       }
     },
@@ -385,6 +408,32 @@
       "next_task": null,
       "updated_at": null,
       "source_version": null
+    },
+    "A-GITHUB-SETUP": {
+      "owner": "A",
+      "objective": "GitHub 협업 및 tw/main 통합",
+      "status": "in_progress",
+      "changes": [
+        "공용 문서 정본을 저장소 docs/로 통합 및 실행 규칙 갱신",
+        "A tw/B main 협업 설정 및 초기 tw 업로드",
+        "최신 main을 tw에 충돌 없이 병합; B 파일 보존"
+      ],
+      "checks": [
+        {
+          "item": "초기 업로드 및 로컬 병합",
+          "status": "passed",
+          "evidence": "tw c120c141b8ca73765c2a689bb01091b620f9302e, 통합 main 705deda00bb8b5f7daabd4d49699951517b200a7; B 파일 바이트 일치 및 main 조상 포함."
+        },
+        {
+          "item": "통합 결과 원격 업로드",
+          "status": "not_run",
+          "evidence": "통합 결과를 GitHub 플러그인으로 업로드하고 재조회할 예정."
+        }
+      ],
+      "issues": [],
+      "additional_requirements": [],
+      "next_task": "A-T00",
+      "updated_at": "2026-10-27T21:10:08+09:00"
     }
   }
 }

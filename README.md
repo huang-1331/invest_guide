@@ -27,3 +27,10 @@ repository의 listCompanies/getCompany/listLessons를 HTTP 어댑터로 교체�
 - 로컬 실행: `python3 -m http.server 4173 --directory dist` 후 http://localhost:4173 열기. ES 모듈을 사용하므로 file://로 직접 열지 않습니다.
 - 실행·미리보기는 로그인이나 API 키 없이 가능합니다.
 - `.openai/hosting.json`은 기존 Sites 배포의 식별자를 보존합니다. 별도 사이트로 복제할 때 그대로 배포하지 않습니다.
+
+## 브랜치·진행 기록
+- A(화면·사용 경험): `tw`. B(데이터·교육): `main`. 파일 소유권은 [로드맵](docs/ROADMAP.md)을 따릅니다.
+- A는 `git fetch origin` 후 `tw`에서 `git merge origin/main`으로 B 변경을 가져와 검증하고 `tw`에만 업로드합니다.
+- 공용 문서 정본은 이 저장소의 `docs/`입니다. [실행 규칙](docs/A_EXECUTION_PROTOCOL.md), [진행 기록](docs/WORK_PROGRESS.json), [A 작업 카드](docs/A_TASK_PROMPTS.txt)를 사용합니다. 기존 바깥 `docs/` 사본은 사용하지 않습니다.
+- 진행 JSON은 한 명씩 수정하고, 병합할 때 revision과 양쪽 기록을 보존합니다.
+- B 교육 데이터·검수 기록은 병합되었으나 화면 연결·공동 실행·API 계약 확인은 별도 작업입니다.
