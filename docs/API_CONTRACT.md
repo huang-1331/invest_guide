@@ -89,3 +89,9 @@
 - [ ] A가 4지선다/수업 본문/PER 실습을 `data.js`에 연결
 - [ ] 학습기록 저장·복원·초기화 구현
 - [ ] B04 브라우저 실제 시연/접근성/배포 확인
+
+## 7. OpenDART 확장 (2026-10-27)
+
+위 1~6절은 B03 작성 시점의 정적 MVP 기준입니다. 이번 확장으로 서버 경로 **`GET /api/companies/{id}/financials`만 구현**되었습니다. 기존 `repository.mode='demo'`는 가격·교육 데이터의 계약을 유지하며, 새 `getFinancials(id, {year, reportCode, fsDiv})` 응답은 독립적인 `is_demo:false`를 가집니다. 다른 제안 HTTP 경로는 여전히 미구현입니다.
+
+상세 계약과 검증 결과는 [OPENDART_INTEGRATION.md](OPENDART_INTEGRATION.md)를 참조합니다. 기존 export·기업 가격·차트·교육 본문·퀴즈 데이터는 유지합니다.
